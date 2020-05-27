@@ -12,7 +12,9 @@ Using Newton's law of unviversal gravitation simulate n-body gravity in a 2D dom
 
 - https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation
 - https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion
+- https://en.wikipedia.org/wiki/Pythagorean_theorem
 
 ## Code
 
 - https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
+- https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles

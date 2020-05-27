@@ -3,6 +3,8 @@
  * date: 20/04/2020
  */
 
+#include <cmath>
+
 #include "display.h"
 
 template<typename T>
@@ -24,8 +26,6 @@ void Display<T>::renderLoop(std::vector<Object<T>> *objects) {
     if (event.type == sf::Event::Closed) window.close();
   }
 
-//  clearDisplayMem();
-
   for (auto &object:*objects) {
     object.updateVelocity(objects, 3.0f);
   }
@@ -42,9 +42,10 @@ void Display<T>::renderLoop(std::vector<Object<T>> *objects) {
         object.location.y >=0 &&
         object.location.y <= HEIGHT
       ) {
-      auto offset = ((int)(object.location.x) + (int)(object.location.y) * WIDTH )* 4;
-      pixels[offset] = 0xff;
-      pixels[offset+3] = 0xff;
+        drawCircle(&object);
+//      auto offset = ((int)(object.location.x) + (int)(object.location.y) * WIDTH )* 4;
+//      pixels[offset] = 0xff;
+//      pixels[offset+3] = 0xff;
     }
   }
 
@@ -59,6 +60,24 @@ template<typename T>
 bool Display<T>::keepLooping() {
   return window.isOpen();
 }
+
+
+// https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles
+template<typename T>
+void Display<T>::drawCircle(const Object<T> *object) {
+  for (float y = -object->radius; y < object->radius; y++) {
+    int width = sqrtf((object->radius * object->radius) - (y * y));
+    for (float x = -width; x < width; x++) {
+      int offset = ((int)(object->location.x + x) + (int)(object->location.y + y) * WIDTH )* 4;
+      pixels[offset + 0] = 0xff;
+      pixels[offset + 1] = 0xff;
+      pixels[offset + 2] = 0xff;
+      pixels[offset + 3] = 0xff;
+    }
+  }
+
+}
+
 
 // https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
 template class Display<double>;

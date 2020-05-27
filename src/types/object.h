@@ -12,12 +12,12 @@
 template<typename T = double>
 class Object {
 private:
-    T          radius;
     T          weight;
     Vector2<T> velocity;
 
 public:
     Vector2<T>    location;
+    T             radius;
     unsigned int  color;
 
     Object(Vector2<T> location, Vector2<T> velocity, unsigned int color, T radius, T weight);

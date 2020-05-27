@@ -21,6 +21,8 @@ private:
   sf::Sprite       sprite;
   sf::RenderWindow window;
 
+  void drawCircle(const Object<T> *object);
+
 public:
   Display();
 
