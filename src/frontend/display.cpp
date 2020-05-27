@@ -76,7 +76,9 @@ template<typename T>
 void Display<T>::fadeBackground() {
   auto pixels32 = (sf::Uint32*)(pixels);
   for (int i = 0; i < WIDTH * HEIGHT; i++) {
-    pixels32[i] = (pixels32[i] & 0xfefefe00u) >> 1;
+    if ((pixels32[i] & 0x00ffffff) > 0) {
+      pixels32[i] = pixels32[i] - 0x00010101;
+    }
   }
 }
 

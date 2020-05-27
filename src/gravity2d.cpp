@@ -16,8 +16,8 @@ int main() {
 //                                    Object<F_SIZE>(Vector2<F_SIZE>(WIDTH/2+100, HEIGHT/2), Vector2<F_SIZE>(0,0.015),  0x0000ff, 5, 2000000),
 //                                    Object<F_SIZE>(Vector2<F_SIZE>(WIDTH/2+95,  HEIGHT/2), Vector2<F_SIZE>(0, 0.017), 0x0000ff, 5, 5000)};
 
-  std::vector<Object<F_SIZE>> objects = { Object<F_SIZE>(Vector2<F_SIZE>(0, HEIGHT/2),    Vector2<F_SIZE>(0.001, 0.0007),   0x0000ff, 5, 100000  ),
-                                          Object<F_SIZE>(Vector2<F_SIZE>(0, HEIGHT/2+10), Vector2<F_SIZE>(0.0011, -0.0005), 0x0000ff, 5, 50000 )};
+  std::vector<Object<F_SIZE>> objects = { Object<F_SIZE>(Vector2<F_SIZE>(0, HEIGHT/2),    Vector2<F_SIZE>(0.001, 0.0007),   0x0000ff, 6, 100000  ),
+                                          Object<F_SIZE>(Vector2<F_SIZE>(0, HEIGHT/2+10), Vector2<F_SIZE>(0.0011, -0.0005), 0x0000ff, 3,  50000 )};
 
   while (mainWindow.keepLooping() && !quitRequested) {
 
