@@ -4,6 +4,7 @@
  */
 
 #include <cmath>
+#include <typeinfo>
 
 #include "display.h"
 
@@ -62,9 +63,25 @@ bool Display<T>::keepLooping() {
 template<typename T>
 void Display<T>::drawCircle(const Object<T> *object) {
   auto pixels32 = (sf::Uint32*)(pixels);
-  for (float y = -object->radius; y < object->radius; y++) {
-    int width = sqrtf((object->radius * object->radius) - (y * y));
-    for (float x = -width; x < width; x++) {
+
+  // https://en.cppreference.com/w/cpp/algorithm/max
+  auto yRadiusAbove = object->location.y - std::max<T>(object->location.y - object->radius, 0);
+  auto yRadiusBelow = std::min<T>(object->location.y + object->radius, HEIGHT) - object->location.y;
+
+  for (T y = -yRadiusAbove; y < yRadiusBelow; y++) {
+    T width;
+
+    // https://stackoverflow.com/questions/15199833/how-to-do-an-if-else-depending-type-of-type-in-c-template
+    if (typeid(T) == typeid(float)) {
+      width =  sqrtf((object->radius * object->radius) - (y * y));
+    } else {
+      width =  sqrt((object->radius * object->radius) - (y * y));
+    }
+
+    auto xRadiusLeft  = object->location.x - std::max<T>(object->location.x - width, 0);
+    auto xRadiusRight = std::min<T>(object->location.x + width, WIDTH) - object->location.x;
+
+    for (T x = -xRadiusLeft; x < xRadiusRight; x++) {
       int offset = (int)(object->location.x + x) + (int)(object->location.y + y) * WIDTH;
       pixels32[offset] = 0xff000000 | object->color;
     }

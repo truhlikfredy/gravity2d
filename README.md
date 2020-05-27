@@ -18,3 +18,5 @@ Using Newton's law of unviversal gravitation simulate n-body gravity in a 2D dom
 
 - https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
 - https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles
+- https://stackoverflow.com/questions/15199833/how-to-do-an-if-else-depending-type-of-type-in-c-template
+- https://en.cppreference.com/w/cpp/algorithm/max
