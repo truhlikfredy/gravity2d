@@ -23,6 +23,8 @@ private:
 
   void drawCircle(const Object<T> *object);
 
+  void fadeBackground();
+
 public:
   Display();
 

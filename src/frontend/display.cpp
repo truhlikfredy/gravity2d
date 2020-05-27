@@ -26,12 +26,10 @@ void Display<T>::renderLoop(std::vector<Object<T>> *objects) {
     if (event.type == sf::Event::Closed) window.close();
   }
 
+  fadeBackground();
+
   for (auto &object:*objects) {
     object.updateVelocity(objects, 3.0f);
-  }
-
-  for (int i=0; i< 100; i++) {
-
   }
 
   for (auto &object:*objects) {
@@ -43,9 +41,6 @@ void Display<T>::renderLoop(std::vector<Object<T>> *objects) {
         object.location.y <= HEIGHT
       ) {
         drawCircle(&object);
-//      auto offset = ((int)(object.location.x) + (int)(object.location.y) * WIDTH )* 4;
-//      pixels[offset] = 0xff;
-//      pixels[offset+3] = 0xff;
     }
   }
 
@@ -65,17 +60,24 @@ bool Display<T>::keepLooping() {
 // https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles
 template<typename T>
 void Display<T>::drawCircle(const Object<T> *object) {
+  auto pixels32 = (sf::Uint32*)(pixels);
   for (float y = -object->radius; y < object->radius; y++) {
     int width = sqrtf((object->radius * object->radius) - (y * y));
     for (float x = -width; x < width; x++) {
-      int offset = ((int)(object->location.x + x) + (int)(object->location.y + y) * WIDTH )* 4;
-      pixels[offset + 0] = 0xff;
-      pixels[offset + 1] = 0xff;
-      pixels[offset + 2] = 0xff;
-      pixels[offset + 3] = 0xff;
+      int offset = (int)(object->location.x + x) + (int)(object->location.y + y) * WIDTH;
+      pixels32[offset] = 0xffffffff;
     }
   }
 
+}
+
+
+template<typename T>
+void Display<T>::fadeBackground() {
+  auto pixels32 = (sf::Uint32*)(pixels);
+  for (int i = 0; i < WIDTH * HEIGHT; i++) {
+    pixels32[i] = (pixels32[i] & 0xfefefe00u) >> 1;
+  }
 }
 
 
