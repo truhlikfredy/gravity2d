@@ -35,11 +35,12 @@ void Display<T>::renderLoop(std::vector<Object<T>> *objects) {
   for (auto &object:*objects) {
     object.updateLocation(3.0f);
     if (
-        object.location.x >=0 &&
-        object.location.x <= WIDTH &&
-        object.location.y >=0 &&
-        object.location.y <= HEIGHT
+        object.location.x >= -object.radius &&
+        object.location.x <= WIDTH + object.radius &&
+        object.location.y >= -object.radius &&
+        object.location.y <= HEIGHT + object.radius
       ) {
+        // It is visible so it will be drawn
         drawCircle(&object);
     }
   }
