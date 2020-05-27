@@ -65,10 +65,9 @@ void Display<T>::drawCircle(const Object<T> *object) {
     int width = sqrtf((object->radius * object->radius) - (y * y));
     for (float x = -width; x < width; x++) {
       int offset = (int)(object->location.x + x) + (int)(object->location.y + y) * WIDTH;
-      pixels32[offset] = 0xffffffff;
+      pixels32[offset] = 0xff000000 | object->color;
     }
   }
-
 }
 
 
@@ -76,8 +75,10 @@ template<typename T>
 void Display<T>::fadeBackground() {
   auto pixels32 = (sf::Uint32*)(pixels);
   for (int i = 0; i < WIDTH * HEIGHT; i++) {
-    if ((pixels32[i] & 0x00ffffff) > 0) {
+    if ((pixels32[i] & 0x000000ff) &&  (pixels32[i] & 0x0000ff00) && (pixels32[i] & 0x00ff0000) ) {
       pixels32[i] = pixels32[i] - 0x00010101;
+    } else {
+      pixels32[i] = (pixels32[i] & 0x00FEFEFE) >> 1;
     }
   }
 }
